@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>¡Hola Mundo!</title>
+  <meta name="description" content="Página de demostración desplegada en una VM Azure — Hola Mundo" />
+
+  <style>
+    :root{
+      --bg1:#0f172a;
+      --bg2:#0b6066;
+      --accent:#f83aff;
+      --glass: rgba(255,255,255,0.06);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{
+      font-family: Inter, Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg,var(--bg1) 0%,var(--bg2) 100%);
+      color:#e6eef8;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      display:flex;align-items:center;justify-content:center;padding:32px;
+    }
+
+    .card{
+      width:100%;
+      max-width:980px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border-radius:18px;
+      box-shadow: 0 10px 30px rgba(2,6,23,0.6);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:0;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .left{
+      padding:48px;
+    }
+    .monument{
+      font-size: clamp(28px, 3.5vw, 48px);
+      letter-spacing: -1px;
+      line-height:1.02;
+      margin-bottom:12px;
+      background: linear-gradient(90deg,#fff 0%, var(--accent) 40%, rgba(255,255,255,0.6) 100%);
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      font-weight:800;
+    }
+    .subtitle{
+      color:#bcd2f5;
+      margin-bottom:20px;
+      font-size:16px;
+    }
+
+    .badges{
+      display:flex;gap:10px;margin-top:18px;
+    }
+    .badge{
+      padding:8px 12px;border-radius:999px;background:var(--glass);font-size:13px;border:1px solid rgba(255,255,255,0.03)
+    }
+
+    .cta{
+      margin-top:28px;
+      display:flex;gap:12px;
+    }
+    .btn{
+      padding:12px 18px;border-radius:10px;border:0;cursor:pointer;font-weight:700;
+      background:linear-gradient(90deg,var(--accent), #ff008c);color:#ffffff;
+      box-shadow: 0 6px 18px rgba(0, 217, 255, 0.397);
+      text-decoration:none;
+    }
+    .btn.secondary{
+      background:transparent;color:#bcd2f5;border:1px solid rgba(255,255,255,0.06);
+    }
+
+    .right{
+      padding:28px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+    }
+    .globe{
+      width:150px;height:150px;border-radius:50%;
+      background: conic-gradient(from 120deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      display:flex;align-items:center;justify-content:center;font-weight:800;color:#dbeafe;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .stat{
+      font-size:14px;color:#9fb9ea;
+    }
+
+    footer{
+      grid-column:1/-1;padding:14px 18px;background:rgba(0,0,0,0.06);color:#a9c2ea;font-size:13px;text-align:center;
+    }
+
+    /* small responsive */
+    @media (max-width:880px){
+      .card{grid-template-columns:1fr; padding:0}
+      .right{order:-1}
+      .left{padding:28px}
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <section class="left">
+      <h1 class="monument">¡Hola Mundo!</h1>
+      <p class="subtitle">Esto es unapágina dentro de una VM en la nube</p>
+
+      <div class="badges">
+        <span class="badge">VM: Linux</span>
+        <span class="badge">Servidor: Nginx</span>
+        <span class="badge">Región: East US</span>
+      </div>
+
+      <div class="cta">
+        <a class="btn" href="#" id="epicBtn">Activar saludo épico</a>
+        <a class="btn secondary" href="#" id="infoBtn">Mostrar hora del servidor</a>
+      </div>
+
+      <p style="margin-top:18px;color:#cfe3ff;font-size:15px;line-height:1.5;">
+        Esta página de demostración ha sido desplegada en una máquina virtual (VM) en Microsoft Azure, utilizando Nginx como servidor web. ¡Explora la nube con estilo épico!
+      </p>
+    </section>
+
+    <aside class="right" aria-label="Panel">
+      <div class="globe" id="globe">AZ</div>
+      <div style="text-align:center">
+        <div style="font-weight:700;font-size:18px">Estado</div>
+        <div class="stat" id="serverTime">Calculando hora...</div>
+      </div>
+    </aside>
+
+    <footer>
+      <span id="footerText">Deploy realizado por <strong>Fernando Quilaqueo</strong> · VM en Azure · <span id="dateNow"></span></span>
+    </footer>
+  </main>
+
+  <script>
+    // Fecha local
+    const dNow = new Date();
+    document.getElementById('dateNow').textContent = dNow.toLocaleString();
+
+    // Botón épico
+    document.getElementById('epicBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const epic = document.createElement('div');
+      epic.style.position='fixed';
+      epic.style.left=0; epic.style.top=0; epic.style.width='100%'; epic.style.height='100%';
+      epic.style.display='flex'; epic.style.alignItems='center'; epic.style.justifyContent='center';
+      epic.style.background='rgba(6,8,24,0.85)'; epic.style.zIndex=9999;
+      epic.innerHTML = '<div style="text-align:center;color:#fff;padding:28px;border-radius:12px;"><h2 style="font-size:32px;margin-bottom:6px;">¡SALUDO ÉPICO ACTIVADO!</h2><p style="opacity:0.9">Tu servidor ruge en la nube.</p><br><button id="closeEpic" style="padding:10px 14px;border-radius:8px;background:linear-gradient(90deg,var(--accent), #ff008c);color:#ffffff">Cerrar</button></div>';
+      document.body.appendChild(epic);
+      document.getElementById('closeEpic').onclick = () => epic.remove();
+    });
+
+    // Mostrar hora del servidor (simulada)
+    document.getElementById('infoBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      const now = new Date();
+      document.getElementById('serverTime').textContent = 'Hora del servidor: ' + now.toLocaleString();
+    });
+
+    // Animación simple del globo
+    (function rotate(){
+      const g = document.getElementById('globe');
+      let r = 0;
+      setInterval(()=>{ r+=2; g.style.transform = 'rotate('+r+'deg)'; }, 80);
+    })();
+  </script>
+</body>
+</html>
