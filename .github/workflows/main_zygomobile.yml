@@ -68,4 +68,7 @@ jobs:
         with:
           app-name: 'zygomobile'
           slot-name: 'Production'
+          startup-command: 'python main.py'
+
+
           
