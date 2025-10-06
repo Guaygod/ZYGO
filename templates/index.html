@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ZYGO - Transporte Unificado</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
 </head>
 <body>
  <div class="container sidebar-hidden" id="container">
     <aside class="sidebar" id="sidebar">
       <div class="logo">
-        <img src="logo.png" alt="ZYGO Logo" />
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="ZYGO Logo" />
         <h2>ZYGO</h2>
       </div>
       <nav>
@@ -61,6 +61,6 @@
     </main>
   </div>
 
-  <script src="script.js"></script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
