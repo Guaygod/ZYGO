@@ -1,7 +1,7 @@
-import os
 from flask import Flask, render_template
+import os
 
-app = Flask(__name__, static_folder='.', template_folder='.')
+app = Flask(__name__)  # Usa 'templates/' por defecto
 
 @app.route('/')
 def home():
@@ -9,4 +9,4 @@ def home():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)  # debug=False en prod
+    app.run(host='0.0.0.0', port=port)
